@@ -1,0 +1,87 @@
+#include<stdio.h>
+#define maxsize 5
+
+void insert();
+void delete();
+void display();
+
+int queue[maxsize];
+int front = -1, rear = -1;
+
+void insert() {
+    int item;
+    printf("\nEnter the Element: ");
+    scanf("%d", &item);
+
+    if (rear == maxsize - 1) {
+        printf("\nOverflow\n");
+        return;
+    }
+    if (front == -1 && rear == -1) {
+        front = 0;
+        rear = 0;
+    } else {
+        rear = rear + 1;
+    }
+    queue[rear] = item;
+    printf("\nElement Inserted is %d\n",item);
+}
+
+void delete() {
+    if (front == -1 || front > rear) {
+        printf("\nUnderflow\n");
+        return;
+    } else {
+        int item = queue[front];
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = front + 1;
+        }
+        printf("\nValue Deleted: %d\n", item);
+    }
+}
+
+void display() {
+    if (front == -1) {
+        printf("\nQueue is Empty\n");
+        return;
+    }
+    printf("\nQueue Elements: ");
+    for (int i = front; i <= rear; i++) {
+        printf("%d ", queue[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice;
+    do {
+        printf("\nMenu:");
+        printf("\n1. Insert");
+        printf("\n2. Delete");
+        printf("\n3. Display");
+        printf("\n4. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                insert();
+                break;
+            case 2:
+                delete();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("\nExiting...\n");
+                break;
+            default:
+                printf("\nInvalid Choice\n");
+        }
+    } while (choice != 4);
+    return 0;
+}
